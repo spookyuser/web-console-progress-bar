@@ -1,0 +1,59 @@
+{
+	"name": "typescript-node-module-boilerplate",
+	"version": "0.0.0",
+	"description": "",
+	"keywords": [
+		""
+	],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/EdJoPaTo/typescript-node-module-boilerplate.git"
+	},
+	"author": {
+		"name": "EdJoPaTo",
+		"email": "typescript-node-module-boilerplate-npm-package@edjopato.de",
+		"url": "https://edjopato.de"
+	},
+	"scripts": {
+		"build": "del-cli dist && tsc",
+		"prepack": "npm run build",
+		"test": "tsc --sourceMap && xo && c8 --all node --test --enable-source-maps"
+	},
+	"type": "module",
+	"engines": {
+		"node": ">=14"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@sindresorhus/tsconfig": "^5.0.0",
+		"@types/node": "^18.18.13",
+		"c8": "^8.0.1",
+		"del-cli": "^5.0.0",
+		"typescript": "^5.0.2",
+		"xo": "^0.56.0"
+	},
+	"files": [
+		"dist",
+		"!*.test.*",
+		"!test.*"
+	],
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"xo": {
+		"rules": {
+			"@typescript-eslint/prefer-readonly-parameter-types": "warn"
+		},
+		"overrides": [
+			{
+				"files": [
+					"**/*.test.*",
+					"**/test.*"
+				],
+				"rules": {
+					"@typescript-eslint/prefer-readonly-parameter-types": "off"
+				}
+			}
+		]
+	}
+}
