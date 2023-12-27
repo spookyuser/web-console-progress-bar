@@ -1,6 +1,6 @@
 {
 	"name": "web-console-progress-bar",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "A progress bar for the browser console.",
 	"keywords": [
 		"progress",
