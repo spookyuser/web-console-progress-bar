@@ -1,21 +1,49 @@
-# typescript-node-module-boilerplate
+# web-console-progress-bar
 
-[![NPM Version](https://img.shields.io/npm/v/typescript-node-module-boilerplate.svg)](https://www.npmjs.com/package/typescript-node-module-boilerplate)
-[![node](https://img.shields.io/node/v/typescript-node-module-boilerplate.svg)](https://www.npmjs.com/package/typescript-node-module-boilerplate)
+[![NPM Version](https://img.shields.io/npm/v/web-console-progress-bar.svg)](https://www.npmjs.com/package/web-console-progress-bar)
 
->
+> A progress bar for the browser console.
 
 ## Install
 
-```bash
-npm install typescript-node-module-boilerplate
+```sh
+npm install web-console-progress-bar
 ```
 
 ## Usage
 
-```ts
-import {myFunction} from 'typescript-node-module-boilerplate';
+```js
+import { ConsoleProgressBar } from "web-console-progress-bar";
 
-myFunction('unicorns');
-//=> 'unicorns & rainbows'
+const progressBar = new ConsoleProgressBar(100);
+progressBar.update(10);
+//=> Progress: [██████░░░░░░░░░░░░] 10% ETA: XX.XXs
 ```
+
+## API
+
+### ConsoleProgressBar(total, updateInterval?)
+
+Creates a new progress bar instance.
+
+#### total
+
+Type: `number`
+
+The total number of units to be processed.
+
+#### updateInterval
+
+Type: `number`Default: `2000`
+
+The interval in milliseconds at which the progress bar should be updated.
+
+### update(currentValue)
+
+Updates the progress bar with the current value.
+
+#### currentValue
+
+Type: `number`
+
+The current value of the progress.
