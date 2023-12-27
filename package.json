@@ -1,36 +1,45 @@
 {
-	"name": "typescript-node-module-boilerplate",
-	"version": "0.0.0",
-	"description": "",
+	"name": "web-console-progress-bar",
+	"version": "1.0.0",
+	"description": "A progress bar for the browser console.",
 	"keywords": [
-		""
+		"progress",
+		"bar",
+		"console",
+		"browser",
+		"web",
+		"cli"
 	],
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/EdJoPaTo/typescript-node-module-boilerplate.git"
+		"url": "https://github.com/spookyuser/web-console-progress-bar.git"
 	},
 	"author": {
-		"name": "EdJoPaTo",
-		"email": "typescript-node-module-boilerplate-npm-package@edjopato.de",
-		"url": "https://edjopato.de"
+		"name": "spookyuser",
+		"email": "sfcz1wps@duck.com",
+		"url": "https://github.com/spookyuser"
 	},
 	"scripts": {
 		"build": "del-cli dist && tsc",
 		"prepack": "npm run build",
-		"test": "tsc --sourceMap && xo && c8 --all node --test --enable-source-maps"
+		"test": "tsc --sourceMap && xo"
 	},
 	"type": "module",
 	"engines": {
 		"node": ">=14"
 	},
-	"dependencies": {},
+	"targets": {
+		"default": {
+			"engines": {
+				"browsers": ">= 50%"
+			}
+		}
+	},
 	"devDependencies": {
 		"@sindresorhus/tsconfig": "^5.0.0",
-		"@types/node": "^18.18.13",
-		"c8": "^8.0.1",
-		"del-cli": "^5.0.0",
-		"typescript": "^5.0.2",
+		"del-cli": "^5.1.0",
+		"typescript": "^5.3.3",
 		"xo": "^0.56.0"
 	},
 	"files": [
@@ -38,12 +47,13 @@
 		"!*.test.*",
 		"!test.*"
 	],
-	"main": "./dist/index.js",
+	"browser": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"xo": {
 		"rules": {
 			"@typescript-eslint/prefer-readonly-parameter-types": "warn"
 		},
+		"prettier": true,
 		"overrides": [
 			{
 				"files": [
