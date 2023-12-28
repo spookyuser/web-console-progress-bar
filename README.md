@@ -13,11 +13,11 @@ npm install web-console-progress-bar
 ## Usage
 
 ```js
-import { ConsoleProgressBar } from "web-console-progress-bar";
+import { ConsoleProgressBar } from "web-console-progress-bar"
 
-const progressBar = new ConsoleProgressBar(100);
-progressBar.update(10);
-//=> Progress: [██████░░░░░░░░░░░░] 10% ETA: XX.XXs
+const progressBar = new ConsoleProgressBar(100)
+progressBar.update(10)
+//=> Progress: [██████░░░░░░░░░░░░] 10% ETA: XXs
 ```
 
 ## API

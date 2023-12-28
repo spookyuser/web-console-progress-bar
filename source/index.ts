@@ -1,3 +1,5 @@
+import ms from "ms"
+
 /**
  * Represents a console progress bar that tracks the progress of a task.
  */
@@ -16,6 +18,14 @@ export class ConsoleProgressBar {
     public total: number,
     updateInterval = 2000
   ) {
+    if (typeof total !== "number") {
+      throw new TypeError("total must be a number")
+    }
+
+    if (typeof updateInterval !== "number") {
+      throw new TypeError("updateInterval must be a number")
+    }
+
     this.current = 0
     this.startTime = performance.now()
     this.updateInterval = updateInterval
@@ -27,6 +37,10 @@ export class ConsoleProgressBar {
    * @param currentValue The current value of the progress.
    */
   update(currentValue: number) {
+    if (typeof currentValue !== "number") {
+      throw new TypeError("currentValue must be a number")
+    }
+
     const now = performance.now()
     if (now - this.lastUpdate < this.updateInterval) {
       return
@@ -36,16 +50,26 @@ export class ConsoleProgressBar {
     const percentage = (this.current / this.total) * 100
     const elapsedTime = now - this.startTime
     const estimatedTotalTime = (elapsedTime / this.current) * this.total
-    const eta = (estimatedTotalTime - elapsedTime) / 1000 // Seconds
+    const eta = estimatedTotalTime - elapsedTime
 
     console.clear()
-    console.log(
-      `Progress: [${this.renderBar(
-        percentage
-      )}] ${percentage}% ETA: ${eta.toFixed(2)}s`
-    )
+    console.log(this.generateProgressBarString(percentage, eta))
 
     this.lastUpdate = now
+  }
+
+  /**
+   * Generates the progress bar string based on the given percentage and ETA.
+   * @param percentage The percentage of progress completed.
+   * @param eta The estimated time remaining.
+   * @returns The progress bar string.
+   */
+  private generateProgressBarString(percentage: number, eta: number) {
+    const bar = this.renderBar(percentage)
+    const formattedPercentage = percentage.toFixed(2)
+    const formattedEta = ms(eta)
+
+    return `Progress: [${bar}] ${formattedPercentage}% ETA: ${formattedEta}`
   }
 
   /**
