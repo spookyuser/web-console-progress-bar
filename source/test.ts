@@ -67,5 +67,61 @@ await test("ConsoleProgressBar", async () => {
       const string = progressBar["generateProgressBarString"](50, 2000)
       strictEqual(string, "Progress: [██████████░░░░░░░░░░] 50.00% ETA: 2s")
     })
+
+    await test("string eta should throw", async () => {
+      const progressBar = new ConsoleProgressBar(100)
+      throws(() => {
+        progressBar["generateProgressBarString"](50, "hi" as any)
+      })
+    })
+
+    await test("negative eta should not throw", async () => {
+      const progressBar = new ConsoleProgressBar(100)
+      const line = progressBar["generateProgressBarString"](50, -0.0113)
+      console.log(line)
+      strictEqual(typeof line === "string", true)
+    })
+
+    await test("infinity eta should not throw", async () => {
+      const progressBar = new ConsoleProgressBar(100)
+      const line = progressBar["generateProgressBarString"](
+        50,
+        Number.POSITIVE_INFINITY
+      )
+      console.log(line)
+      strictEqual(typeof line === "string", true)
+    })
+  })
+
+  await test("calculate", async () => {
+    await test("50/100 should be 50%", async () => {
+      const { percentage } = ConsoleProgressBar.calculate(
+        performance.now(),
+        50,
+        100,
+        performance.now()
+      )
+      strictEqual(percentage, 50)
+    })
+
+    await test("eta in the future should be a positive number", async () => {
+      const { eta } = ConsoleProgressBar.calculate(
+        performance.now(),
+        50,
+        100,
+        performance.now() - 10_000
+      )
+      strictEqual(eta > 0, true)
+    })
+
+    await test("eta in the past should be a negative number", async () => {
+      const { eta } = ConsoleProgressBar.calculate(
+        performance.now(),
+        50,
+        100,
+        performance.now() + 10_000
+      )
+      strictEqual(eta < 0, true)
+    })
   })
 })

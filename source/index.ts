@@ -4,6 +4,19 @@ import ms from "ms"
  * Represents a console progress bar that tracks the progress of a task.
  */
 export class ConsoleProgressBar {
+  static calculate(
+    now: number,
+    current: number,
+    total: number,
+    startTime: number
+  ) {
+    const percentage = (current / total) * 100
+    const elapsedTime = now - startTime
+    const estimatedTotalTime = (elapsedTime / current) * total
+    const eta = estimatedTotalTime - elapsedTime
+    return { percentage, eta }
+  }
+
   current: number
   startTime: number
   updateInterval: number
@@ -47,10 +60,12 @@ export class ConsoleProgressBar {
     }
 
     this.current = currentValue
-    const percentage = (this.current / this.total) * 100
-    const elapsedTime = now - this.startTime
-    const estimatedTotalTime = (elapsedTime / this.current) * this.total
-    const eta = estimatedTotalTime - elapsedTime
+    const { percentage, eta } = ConsoleProgressBar.calculate(
+      now,
+      currentValue,
+      this.total,
+      this.startTime
+    )
 
     console.clear()
     console.log(this.generateProgressBarString(percentage, eta))
@@ -65,9 +80,13 @@ export class ConsoleProgressBar {
    * @returns The progress bar string.
    */
   private generateProgressBarString(percentage: number, eta: number) {
+    if (typeof eta !== "number") throw new TypeError("eta must be a number")
+    if (typeof percentage !== "number")
+      throw new TypeError("percentage must be a number")
+
     const bar = this.renderBar(percentage)
     const formattedPercentage = percentage.toFixed(2)
-    const formattedEta = ms(eta)
+    const formattedEta = Number.isFinite(eta) ? ms(eta) : "∞"
 
     return `Progress: [${bar}] ${formattedPercentage}% ETA: ${formattedEta}`
   }
