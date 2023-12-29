@@ -1,9 +1,25 @@
 {
-  "extends": "@sindresorhus/tsconfig/tsconfig.json",
-  "include": ["source"],
   "compilerOptions": {
+    // add Bun type definitions
+    "types": ["bun-types"],
+
+    // enable latest features
+    "lib": ["esnext"],
+    "module": "esnext",
     "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
+
+    "moduleResolution": "bundler",
+    "declaration": true,
+    "moduleDetection": "force",
+
+    "allowJs": true, // allow importing `.js` from `.ts`
+    "esModuleInterop": true, // allow default imports for CommonJS modules
+
+    // best practices
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
     "outDir": "dist"
-  }
+  },
+  "include": ["source/index.ts"]
 }
