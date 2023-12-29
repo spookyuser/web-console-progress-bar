@@ -12,13 +12,27 @@ npm install web-console-progress-bar
 
 ## Usage
 
-```js
+```typescript
 import { ConsoleProgressBar } from "web-console-progress-bar"
 
 const progressBar = new ConsoleProgressBar(100)
 progressBar.update(10)
 //=> Progress: [██████░░░░░░░░░░░░] 10% ETA: XXs
 ```
+
+or
+
+```typescript
+const progressBar = new ConsoleProgressBar(100)
+
+for (let i = 0; i <= 100; i++) {
+  progressBar.update(i)
+  // Simulate some delay
+  await new Promise((resolve) => setTimeout(resolve, 100))
+}
+```
+
+This will create a progress bar in the console that updates every 2 seconds (default `updateInterval`), and clears the console before each update (default `clearConsole`).
 
 ## API
 
@@ -43,17 +57,3 @@ update(currentValue: number): void
 Updates the current value of the progress bar.
 
 - `currentValue` (number): The current value.
-
-## Example Usage
-
-```typescript
-const progressBar = new ConsoleProgressBar(100)
-
-for (let i = 0; i <= 100; i++) {
-  progressBar.update(i)
-  // Simulate some delay
-  await new Promise((resolve) => setTimeout(resolve, 100))
-}
-```
-
-This will create a progress bar in the console that updates every 2 seconds (default `updateInterval`), and clears the console before each update (default `clearConsole`).
