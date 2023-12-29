@@ -21,7 +21,7 @@
     "url": "https://github.com/spookyuser"
   },
   "scripts": {
-    "build": "del-cli dist && bun run test && bun run test:e2e && bun run lint && bun build source/index.ts --target=browser --outfile=dist/index.js && bun run build:declaration",
+    "build": "del-cli dist && bun run test && bun run test:e2e && bun run lint && bun build source/index.ts --target=browser --outfile=dist/index.js --no-bundle && bun run build:declaration",
     "build:declaration": "tsc --emitDeclarationOnly --sourceMap --project tsconfig.json ",
     "prepack": "npm run build",
     "lint": "xo",
