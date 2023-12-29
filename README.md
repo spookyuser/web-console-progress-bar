@@ -22,28 +22,38 @@ progressBar.update(10)
 
 ## API
 
-### ConsoleProgressBar(total, updateInterval?)
+### Constructor
 
-Creates a new progress bar instance.
+```typescript
+constructor(total: number, updateInterval?: number, clearConsole?: boolean)
+```
 
-#### total
+Creates a new instance of `ConsoleProgressBar`.
 
-Type: `number`
+- `total` (number): The total number of items to process.
+- `updateInterval` (number, optional): The interval (in milliseconds) at which to update the progress bar. Default is 2000.
+- `clearConsole` (boolean, optional): Indicates whether to clear the console before updating the progress bar. Default is true.
 
-The total number of units to be processed.
+### Method: update
 
-#### updateInterval
+```typescript
+update(currentValue: number): void
+```
 
-Type: `number`Default: `2000`
+Updates the current value of the progress bar.
 
-The interval in milliseconds at which the progress bar should be updated.
+- `currentValue` (number): The current value.
 
-### update(currentValue)
+## Example Usage
 
-Updates the progress bar with the current value.
+```typescript
+const progressBar = new ConsoleProgressBar(100)
 
-#### currentValue
+for (let i = 0; i <= 100; i++) {
+  progressBar.update(i)
+  // Simulate some delay
+  await new Promise((resolve) => setTimeout(resolve, 100))
+}
+```
 
-Type: `number`
-
-The current value of the progress.
+This will create a progress bar in the console that updates every 2 seconds (default `updateInterval`), and clears the console before each update (default `clearConsole`).
