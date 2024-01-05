@@ -48,7 +48,8 @@ export class ConsoleProgressBar {
       throw new TypeError("currentValue must be a number")
     }
 
-    if (performance.now() - this.lastUpdate < this.updateInterval) {
+    const now = performance.now()
+    if (now - this.lastUpdate < this.updateInterval) {
       return
     }
 
@@ -60,8 +61,10 @@ export class ConsoleProgressBar {
       this.generateProgressBarString(
         this.getPercentage(),
         this.eta.estimate() * 1000
-      ) // We need ms so
+      )
     )
+
+    this.lastUpdate = now // Update the lastUpdate time
   }
 
   private getPercentage() {
